@@ -7,8 +7,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.Proxy;
 
 @Entity
+@Proxy(lazy = false)
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,11 +36,12 @@ public class Book {
         this.users = users;
     }
 
-    public Book(Long id, String name, LocalDate releaseDate, String ISBN) {
+    public Book(Long id, String name, LocalDate releaseDate, String ISBN, String authors) {
         this.id = id;
         this.name = name;
         this.releaseDate = releaseDate;
         this.ISBN = ISBN;
+        this.authors = authors;
     }
 
     public Long getId() {

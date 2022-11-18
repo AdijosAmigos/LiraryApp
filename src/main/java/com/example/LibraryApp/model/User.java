@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import com.example.LibraryApp.model.dto.userdto.UserCreateRequest;
+import org.hibernate.annotations.Proxy;
 
 
 @Entity
 @Table(name = "users")
+@Proxy(lazy = false)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,8 +20,7 @@ public class User {
     private String email;
     @OneToMany(
             mappedBy = "users",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+            fetch = FetchType.EAGER
     )
     private List<Book> books;
 
@@ -33,21 +34,6 @@ public class User {
         this.email = email;
         this.books = new ArrayList<>();
     }
-
-    public User(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public static User fromDto(UserCreateRequest userCreateRequest){
-        return new User(
-          userCreateRequest.getId(),
-          userCreateRequest.getName(),
-          userCreateRequest.getPassword(),
-          userCreateRequest.getEmail(),
-          userCreateRequest.getBooks());
-    }
-
 
     public Long getId() {
         return id;

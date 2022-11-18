@@ -4,25 +4,24 @@ import com.example.LibraryApp.model.Book;
 import com.example.LibraryApp.model.User;
 import com.example.LibraryApp.model.dto.userdto.UserCreateRequest;
 import com.example.LibraryApp.model.dto.userdto.UserUpdateRequest;
+import com.example.LibraryApp.repository.BookRepository;
 import com.example.LibraryApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
-    private final BookService bookService;
+    private final BookRepository bookRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, BookService bookService) {
+    public UserService(UserRepository userRepository, BookRepository bookRepository) {
         this.userRepository = userRepository;
-        this.bookService = bookService;
+        this.bookRepository = bookRepository;
     }
 
     public User addUser(UserCreateRequest user) {
@@ -36,19 +35,15 @@ public class UserService {
     }
 
     public List<User> getUsers() {
-        return StreamSupport.stream(userRepository.findAll()
-                .spliterator(), false)
-                .collect(Collectors.toList());
+        return userRepository.findAll();
     }
 
     public Optional<User> findUserById(Long id) {
         return userRepository.findById(id);
     }
 
-    public User deleteUserById(Long id) {
-       User user = findUserById(id).orElseThrow();
-       userRepository.delete(user);
-       return user;
+    public void deleteUserById(Long id) {
+       userRepository.deleteById(id);
     }
 
     public User updateUser(UserUpdateRequest user, Long id) {
@@ -59,11 +54,11 @@ public class UserService {
         return userRepository.save(editUser);
     }
 
-    public void borrowBook(Long bookId, Long userId){
-        Book book = bookService.findBookById(bookId).orElseThrow();
-        User user = userRepository.findById(userId).orElseThrow();
+    public User borrowBook(Long userId, Long bookId){
+        var book = bookRepository.getById(bookId);
+        var user = userRepository.getById(userId);
         user.addBook(book);
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
 }

@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class BookService {
@@ -27,14 +25,13 @@ public class BookService {
           book.getId(),
           book.getName(),
           book.getReleaseDate(),
-          book.getISBN());
+          book.getISBN(),
+          book.getAuthors());
         return bookRepository.save(createdBook);
     }
 
     public List<Book> getBooks() {
-        return StreamSupport.stream(bookRepository.findAll()
-                .spliterator(), false)
-                .collect(Collectors.toList());
+        return bookRepository.findAll();
     }
 
     public Optional<Book> findBookById(Long id){
