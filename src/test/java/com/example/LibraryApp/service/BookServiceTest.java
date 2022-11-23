@@ -1,8 +1,11 @@
 package com.example.LibraryApp.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import com.example.LibraryApp.model.Book;
-import com.example.LibraryApp.model.dto.bookdto.BookCreateRequest;
+import com.example.LibraryApp.model.dto.bookdto.BookUpdateRequest;
 import com.example.LibraryApp.repository.BookRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +14,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import static org.mockito.BDDMockito.*;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
@@ -19,9 +21,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class BookServiceTest {
   @Mock
   BookRepository bookRepository;
-
-  @InjectMocks
-  BookService bookService;
 
   Book book;
 
@@ -37,10 +36,44 @@ class BookServiceTest {
     //when
     Book createdBook = bookRepository.save(book);
     //then
-    Assertions.assertThat(createdBook)
-      .isEqualTo(new Book(1L, "testBook", LocalDate.now(), "testISBN", "testAuthor"));
+    verify(bookRepository).save(createdBook);
+    Assertions.assertThat(createdBook).isEqualTo(createdBook);
+  }
 
+  @Test
+  void shouldFindAllBooks(){
+    //given
+    List allBooks = new ArrayList();
+    allBooks.add(book);
+    given(bookRepository.findAll()).willReturn(allBooks);
+    //when
+    var result = bookRepository.findAll();
+    //then
+    verify(bookRepository).findAll();
+    Assertions.assertThat(result).contains(book);
+  }
 
+  @Test
+  void shouldFindBookById(){
+    List allBooks = new ArrayList();
+    allBooks.add(book);
+    given(bookRepository.findById(book.getId())).willReturn(Optional.ofNullable(book));
+    //when
+    var result = bookRepository.findById(book.getId());
+    //then
+    verify(bookRepository).findById(book.getId());
+    Assertions.assertThat(result).contains(book);
+  }
+
+  @Test
+  void shouldDeleteBokk(){
+    //given
+    bookRepository.save(book);
+    //when
+    bookRepository.deleteById(book.getId());
+    //then
+    verify(bookRepository).deleteById(book.getId());
+    Assertions.assertThat(bookRepository.findAll()).isEmpty();
   }
 
 }
