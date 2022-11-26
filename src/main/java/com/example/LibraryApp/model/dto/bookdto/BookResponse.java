@@ -1,10 +1,6 @@
 package com.example.LibraryApp.model.dto.bookdto;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import com.example.LibraryApp.model.Book;
-import com.example.LibraryApp.model.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -16,11 +12,14 @@ public class BookResponse {
   private LocalDate releaseDate;
   private String ISBN;
 
-  public BookResponse(Long id, String name, LocalDate releaseDate, String ISBN) {
+  private String authors;
+
+  public BookResponse(Long id, String name, LocalDate releaseDate, String ISBN, String authors) {
     this.id = id;
     this.name = name;
     this.releaseDate = releaseDate;
     this.ISBN = ISBN;
+    this.authors = authors;
   }
 
   @Data

@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import com.example.LibraryApp.model.Book;
-import com.example.LibraryApp.model.dto.bookdto.BookUpdateRequest;
 import com.example.LibraryApp.repository.BookRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import static org.mockito.BDDMockito.*;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -66,7 +64,7 @@ class BookServiceTest {
   }
 
   @Test
-  void shouldDeleteBokk(){
+  void shouldDeleteBook(){
     //given
     bookRepository.save(book);
     //when

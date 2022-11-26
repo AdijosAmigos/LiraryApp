@@ -83,7 +83,8 @@ public class BookControler {
       book.getId(),
       book.getName(),
       book.getReleaseDate(),
-      book.getISBN());
+      book.getISBN(),
+      book.getAuthors());
   }
 
 }
