@@ -32,15 +32,6 @@ class BookControllerTestIT {
   private BookRepository bookRepository;
 
   @Autowired
-  private BookService bookService;
-
-  @Autowired
-  private UserRepository userRepository;
-
-  @Autowired
-  private UserService userService;
-
-  @Autowired
   ApplicationContext context;
 
   Book book;
