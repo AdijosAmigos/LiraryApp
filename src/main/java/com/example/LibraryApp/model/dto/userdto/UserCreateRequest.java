@@ -13,7 +13,6 @@ public class UserCreateRequest {
   private String email;
   private List<Book> books;
 
-
   public UserCreateRequest(Long id, String name, String password, String email, List<Book> books) {
     this.id = id;
     this.name = name;
@@ -22,54 +21,7 @@ public class UserCreateRequest {
     this.books = books;
   }
 
-  public UserCreateRequest(Long id, String name, String password, String email) {
-    this.id = id;
-    this.name = name;
-    this.password = password;
-    this.email = email;
-  }
-
   public static User fromDto(UserCreateRequest user){
     return new User(user.getId(), user.getName(), user.getPassword(), user.getEmail(), user.getBooks());
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public List<Book> getBooks() {
-    return books;
-  }
-
-  public void setBooks(List<Book> books) {
-    this.books = books;
   }
 }

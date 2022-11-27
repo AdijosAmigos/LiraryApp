@@ -79,6 +79,15 @@ public class UserController {
     return new ResponseEntity<>(toUserResponse(updatedUser), HttpStatus.OK);
   }
 
+  @PostMapping("/{userId}/{bookId}")
+  public ResponseEntity<UserResponse> assignBookForUser(@PathVariable Long userId, @PathVariable Long bookId){
+    if(userId < 0 || bookId < 0){
+      new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    User userBorrowedBook = userService.borrowBook(userId, bookId);
+    return new ResponseEntity<>(toUserResponse(userBorrowedBook), HttpStatus.OK);
+  }
+
   private UserResponse toUserResponse(User user){
     List<UserResponse.BookResponse> books = user.getBooks().stream()
       .map(book -> new UserResponse.BookResponse(

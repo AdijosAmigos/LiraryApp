@@ -4,13 +4,11 @@ import lombok.Data;
 
 @Data
 public class UserUpdateRequest {
-  private Long id;
   private String name;
   private String password;
   private String email;
 
-  public UserUpdateRequest(Long id, String name, String password, String email) {
-    this.id = id;
+  public UserUpdateRequest(String name, String password, String email) {
     this.name = name;
     this.password = password;
     this.email = email;

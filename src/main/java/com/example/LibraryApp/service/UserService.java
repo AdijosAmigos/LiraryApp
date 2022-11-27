@@ -1,5 +1,6 @@
 package com.example.LibraryApp.service;
 
+import javax.transaction.Transactional;
 import com.example.LibraryApp.model.Book;
 import com.example.LibraryApp.model.User;
 import com.example.LibraryApp.model.dto.userdto.UserCreateRequest;
@@ -58,7 +59,8 @@ public class UserService {
         var book = bookRepository.getById(bookId);
         var user = userRepository.getById(userId);
         user.addBook(book);
-        return userRepository.save(user);
+        userRepository.save(user);
+        return user;
     }
 
 }

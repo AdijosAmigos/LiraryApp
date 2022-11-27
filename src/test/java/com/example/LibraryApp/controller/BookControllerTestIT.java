@@ -31,9 +31,9 @@ class BookControllerTestIT {
   @Autowired
   ApplicationContext context;
 
-  Book book;
+  private Book book;
 
-  private String domain = "http://localhost:";
+  private final String domain = "http://localhost:";
 
   @BeforeEach
   void addBook(){

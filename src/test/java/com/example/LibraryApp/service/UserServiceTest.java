@@ -76,7 +76,7 @@ class UserServiceTest {
   void should_update_user(){
     //given
     UserUpdateRequest updatedUser = new UserUpdateRequest(
-      2L, "Maciek", "maciekpassowrd", "maciek@gamil.com"
+      "Maciek", "maciekpassowrd", "maciek@gamil.com"
     );
     //when
     userService.addUser(user);
