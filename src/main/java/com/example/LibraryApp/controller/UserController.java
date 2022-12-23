@@ -11,6 +11,7 @@ import com.example.LibraryApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +40,7 @@ public class UserController {
     return new ResponseEntity<>(toUserResponse(createdUser), HttpStatus.CREATED);
   }
 
+  /*
   @GetMapping
   public ResponseEntity<List<UserResponse>> getAllUsers(){
     List<UserResponse> allUsers = userService.getUsers()
@@ -46,6 +48,17 @@ public class UserController {
       .map(this::toUserResponse)
       .collect(Collectors.toList());
     return new ResponseEntity<>(allUsers, HttpStatus.OK);
+  }
+   */
+
+  @GetMapping
+  public String getAllUsers(Model model){
+    List<UserResponse> allUsers = userService.getUsers()
+      .stream()
+      .map(this::toUserResponse)
+      .toList();
+    model.addAttribute("users", allUsers);
+    return "users";
   }
 
   @GetMapping("/{id}")

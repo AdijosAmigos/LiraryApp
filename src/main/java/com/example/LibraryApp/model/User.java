@@ -8,7 +8,7 @@ import org.hibernate.annotations.Proxy;
 
 
 @Entity
-@Table(name = "users")
+@Table(name = "Users")
 @Proxy(lazy = false)
 public class User {
     @Id
@@ -21,7 +21,7 @@ public class User {
             mappedBy = "users",
             fetch = FetchType.EAGER
     )
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
 
     public User() {
     }
@@ -31,7 +31,7 @@ public class User {
         this.name = name;
         this.password = password;
         this.email = email;
-        this.books = new ArrayList<>();
+        this.books = books;
     }
 
     public Long getId() {

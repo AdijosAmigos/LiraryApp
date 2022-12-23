@@ -2,19 +2,16 @@ package com.example.LibraryApp.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.Proxy;
 
 @Entity
+@Table(name = "Books")
 @Proxy(lazy = false)
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "book_id")
+    @Column(name = "books_id")
     private Long id;
     private String name;
 

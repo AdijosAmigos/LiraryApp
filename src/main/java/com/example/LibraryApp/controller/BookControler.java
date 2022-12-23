@@ -13,6 +13,7 @@ import com.example.LibraryApp.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/books")
@@ -41,6 +43,7 @@ public class BookControler {
     return new ResponseEntity<>(toBookResponse(createdBook), HttpStatus.CREATED);
   }
 
+  /*
   @GetMapping
   public ResponseEntity<List<BookResponse>> getAllBooks(){
    List<BookResponse> books = bookService.getBooks().stream()
@@ -48,6 +51,18 @@ public class BookControler {
      .collect(Collectors.toList());
    return new ResponseEntity<>(books, HttpStatus.OK);
   }
+
+   */
+
+  @GetMapping
+  public String showBooks(Model model){
+    //List<BookResponse> list = bookService.getBooks().stream()
+    //  .map(this::toBookResponse)
+    //  .collect(Collectors.toList());
+    model.addAttribute("books", bookService.getBooks());
+    return "books";
+  }
+
 
   @GetMapping("/{id}")
   public ResponseEntity<BookResponse> getBookById(@PathVariable Long id){
