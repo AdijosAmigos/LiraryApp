@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Library</title>
+<body>
+<h3>Ksiazki</h3>
+  <tr th:each="ksiazki: ${books}">
+    <td th:text="${ksiazki.getReleaseDate()}"></td>
+    <td th:text="${ksiazki.getAuthors()}"></td>
+    <td th:text="${ksiazki.getISBN()}"></td>
+    <td th:text="${ksiazki.getReleaseDate()}"></td>
+  </tr>
+
+</body>
+</html>
